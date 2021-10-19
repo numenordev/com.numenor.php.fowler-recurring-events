@@ -47,10 +47,20 @@ class TEDayOfYear implements TemporalExpression
         $instance = (new Carbon($date))->setTime(0, 0);
 
         return $instance >= $start
-            && $this->day == $instance->day
-            && $this->month == $instance->month
+            && $this->dateMatchesAccountingForLeapYear($instance)
             && ($instance->year - $start->year) % $this->frequency == 0
             && $this->hasCorrectFrequencyFromStart($instance, $start);
+    }
+
+    public function dateMatchesAccountingForLeapYear(Carbon $instance): bool
+    {
+        $dateMatchesExactly = $this->day == $instance->day && $this->month == $instance->month;
+
+        $leapDayMatchesMarch1 =  $this->month == 2 && $this->day == 29
+            && !$instance->isLeapYear()
+            && $instance->month == 3 && $instance->day == 1;
+
+        return $dateMatchesExactly || $leapDayMatchesMarch1;
     }
 
     protected function hasCorrectFrequencyFromStart(Carbon $instance, Carbon $start): bool

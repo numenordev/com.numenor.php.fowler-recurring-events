@@ -20,7 +20,6 @@ class TEDayOfMonthTest extends TestCase
 
     public function testBasicCorrectDateReturnsTrue()
     {
-
         $startOfMonth = new TEDayOfMonth(new Carbon('2021-01-01'), 1);
         $testDate = new Carbon('2021-12-01');
 

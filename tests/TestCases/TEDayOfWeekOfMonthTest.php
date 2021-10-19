@@ -21,7 +21,6 @@ class TEDayOfWeekOfMonthTest extends TestCase
 
     public function testBasicCorrectDateReturnsTrue()
     {
-
         $startOfMonth = new TEDayOfWeekOfMonth(new Carbon('2021-01-01'), 1, 1);
         $testDate = new Carbon('2021-01-04');
 
