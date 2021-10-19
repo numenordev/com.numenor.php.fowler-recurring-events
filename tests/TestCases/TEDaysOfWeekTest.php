@@ -3,11 +3,21 @@
 namespace Tests\TestCases;
 
 use Carbon\Carbon;
-use PHPUnit\Framework\TestCase;
 use Numenor\FowlerRecurringEvents\TemporalExpressions\TEDaysOfWeek;
+use PHPUnit\Framework\TestCase;
 
 class TEDaysOfWeekTest extends TestCase
 {
+    public function testCorrectDateBeforePatternStartReturnsFalse()
+    {
+        $pattern = new TEDaysOfWeek(new Carbon('2021-01-01'), 1);
+        $testDate = new Carbon('2020-12-28');
+
+        $result = $pattern->includes($testDate);
+
+        $this->assertFalse($result);
+    }
+
     public function testIntOrIntArrayTypingIsEnforced()
     {
         $this->expectException(\TypeError::class);

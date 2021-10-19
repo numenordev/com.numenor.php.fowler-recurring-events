@@ -5,10 +5,19 @@ namespace Tests\TestCases;
 use Carbon\Carbon;
 use Numenor\FowlerRecurringEvents\TemporalExpressions\TEDayOfWeekOfMonth;
 use PHPUnit\Framework\TestCase;
-use Numenor\FowlerRecurringEvents\TemporalExpressions\TEDayOfMonth;
 
 class TEDayOfWeekOfMonthTest extends TestCase
 {
+    public function testCorrectDateBeforePatternStartReturnsFalse()
+    {
+        $pattern = new TEDayOfWeekOfMonth(new Carbon('2021-01-01'), 1, 1);
+        $testDate = new Carbon('2020-01-06');
+
+        $result = $pattern->includes($testDate);
+
+        $this->assertFalse($result);
+    }
+
     public function testBasicIncorrectDateReturnsFalse()
     {
         $pattern = new TEDayOfWeekOfMonth(new Carbon('2021-01-01'), 1, 1);

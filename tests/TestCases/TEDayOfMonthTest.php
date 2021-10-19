@@ -3,11 +3,21 @@
 namespace Tests\TestCases;
 
 use Carbon\Carbon;
-use PHPUnit\Framework\TestCase;
 use Numenor\FowlerRecurringEvents\TemporalExpressions\TEDayOfMonth;
+use PHPUnit\Framework\TestCase;
 
 class TEDayOfMonthTest extends TestCase
 {
+    public function testCorrectDateBeforePatternStartReturnsFalse()
+    {
+        $pattern = new TEDayOfMonth(new Carbon('2021-01-01'), 1);
+        $testDate = new Carbon('2020-01-01');
+
+        $result = $pattern->includes($testDate);
+
+        $this->assertFalse($result);
+    }
+
     public function testBasicIncorrectDateReturnsFalse()
     {
         $pattern = new TEDayOfMonth(new Carbon('2021-01-01'), 1);
