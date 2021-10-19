@@ -36,10 +36,6 @@ class TEDays implements TemporalExpression
         $start = (new Carbon($this->start))->setTime(0, 0);
         $instance = (new Carbon($date))->setTime(0, 0);
 
-        if ($instance < $start) {
-            return false;
-        }
-
         return $instance >= $start
             && $this->hasCorrectFrequencyFromStart($instance, $start);
     }
